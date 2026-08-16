@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Socket Test</title>
+</head>
+
+<body>
+    <h2>PeerHub Chat Test</h2>
+    <div id="messages" style="border:1px solid #ccc; height:200px; overflow-y:scroll; padding:10px;"></div>
+    <input id="msgInput" placeholder="Type a message" />
+    <button onclick="sendMessage()">Send</button>
+
+    <script src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io('http://localhost:5000');
+
+        const CHANNEL_ID = '4a74990c-66b2-4595-9c77-4c0f5406fef2';
+        const SENDER_ID = '0f24ff27-d78e-4e8c-b95b-16198c2121fb';
+
+        socket.emit('join_channel', CHANNEL_ID);
+
+        socket.on('receive_message', (message) => {
+            const div = document.getElementById('messages');
+            div.innerHTML += `<p><b>${message.sender.username}:</b> ${message.content}</p>`;
+        });
+
+        function sendMessage() {
+            const input = document.getElementById('msgInput');
+            socket.emit('send_message', {
+                channelId: CHANNEL_ID,
+                senderId: SENDER_ID,
+                content: input.value
+            });
+            input.value = '';
+        }
+    </script>
+</body>
+
+</html>

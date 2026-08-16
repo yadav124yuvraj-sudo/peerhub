@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  email        String   @unique
+  passwordHash String
+  avatarUrl    String?
+  totalPoints  Int      @default(0)
+  createdAt    DateTime @default(now())
+  memberships  ServerMember[]
+  messages  Message[]
+  resources   Resource[]
+  doubtThreads  DoubtThread[]
+  doubtReplies  DoubtReply[]
+  pointsLogs  PointsLog[]
+}
+
+model Server {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  ownerId     String
+  inviteCode  String   @unique @default(uuid())
+  createdAt   DateTime @default(now())
+  members     ServerMember[]
+  channels    Channel[]
+  resources   Resource[]
+  doubtThreads  DoubtThread[]
+}
+
+model Channel {
+  id        String   @id @default(uuid())
+  serverId  String
+  name      String
+  type      ChannelType @default(TEXT)
+  createdAt DateTime @default(now())
+
+  server    Server   @relation(fields: [serverId], references: [id])
+  messages  Message[]
+}
+enum ChannelType {
+  TEXT
+  GAMING
+}
+
+
+model Message {
+  id        String   @id @default(uuid())
+  channelId String
+  senderId  String
+  content   String
+  createdAt DateTime @default(now())
+
+  channel   Channel  @relation(fields: [channelId], references: [id])
+  sender    User     @relation(fields: [senderId], references: [id])
+}
+
+model Resource {
+  id          String   @id @default(uuid())
+  serverId    String
+  uploaderId  String
+  title       String
+  fileUrl     String
+  tags        String?
+  downloads   Int      @default(0)
+  upvotes     Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  server      Server   @relation(fields: [serverId], references: [id])
+  uploader    User     @relation(fields: [uploaderId], references: [id])
+}
+
+model DoubtThread {
+  id          String   @id @default(uuid())
+  serverId    String
+  channelId   String
+  askedById   String
+  title       String
+  isSolved    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  server      Server   @relation(fields: [serverId], references: [id])
+  askedBy     User     @relation(fields: [askedById], references: [id])
+  replies     DoubtReply[]
+}
+
+model DoubtReply {
+  id                String   @id @default(uuid())
+  threadId          String
+  repliedById       String
+  content           String
+  isAcceptedAnswer  Boolean  @default(false)
+  createdAt         DateTime @default(now())
+
+  thread            DoubtThread @relation(fields: [threadId], references: [id])
+  repliedBy         User        @relation(fields: [repliedById], references: [id])
+}
+
+model PointsLog {
+  id          String   @id @default(uuid())
+  userId      String
+  actionType  String
+  points      Int
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+
+model ServerMember {
+  id        String   @id @default(uuid())
+  serverId  String
+  userId    String
+  role      Role     @default(MEMBER)
+  joinedAt  DateTime @default(now())
+
+  server    Server   @relation(fields: [serverId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([serverId, userId])
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}

@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables
+.env
+*.env
+**/.env
+
+# Generated folders & build output
+generated/
+**/generated/
+dist/
+build/
+
+# Logs
+*.log
