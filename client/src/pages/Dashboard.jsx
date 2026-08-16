@@ -555,28 +555,28 @@ export default function Dashboard() {
       {/* RIGHT WORKSPACE AREA */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* TOP NAVIGATION HEADER: Server Name & Tab Switcher */}
-        <header className="h-14 border-b border-slate-800 px-6 flex items-center justify-between bg-slate-900 shrink-0">
-          <div className="flex items-center gap-3">
-            <span className="font-bold text-lg text-white">
+        <header className="min-h-14 sm:h-14 border-b border-slate-800 px-3 sm:px-6 py-2 sm:py-0 flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 bg-slate-900 shrink-0">
+          <div className="min-w-0 flex items-center gap-2 sm:gap-3">
+            <span className="font-bold text-sm sm:text-base md:text-lg text-white truncate max-w-[150px] sm:max-w-[250px] md:max-w-none">
               {selectedServerDetails ? selectedServerDetails.name : 'Select a Server'}
             </span>
             {selectedServerDetails?.inviteCode && (
-              <span className="text-[10px] bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-md text-slate-400 font-mono" title="Invite Code">
+              <span className="shrink-0 text-[10px] bg-slate-800 border border-slate-700 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md text-slate-400 font-mono" title="Invite Code">
                 Code: {selectedServerDetails.inviteCode}
               </span>
             )}
             {isAdmin && (
-              <span className="text-[10px] font-bold bg-amber-500/10 border border-amber-500/30 text-amber-400 px-2 py-0.5 rounded-full">
+              <span className="shrink-0 text-[10px] font-bold bg-amber-500/10 border border-amber-500/30 text-amber-400 px-2 py-0.5 rounded-full">
                 ADMIN
               </span>
             )}
           </div>
 
           {/* TAB NAVIGATION */}
-          <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+          <div className="shrink-0 flex items-center gap-0.5 sm:gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
             <button
               onClick={() => setActiveTab('chat')}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+              className={`px-2.5 sm:px-3 md:px-4 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap ${
                 activeTab === 'chat'
                   ? 'bg-blue-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
@@ -586,7 +586,7 @@ export default function Dashboard() {
             </button>
             <button
               onClick={() => setActiveTab('library')}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+              className={`px-2.5 sm:px-3 md:px-4 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap ${
                 activeTab === 'library'
                   ? 'bg-blue-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
@@ -596,7 +596,7 @@ export default function Dashboard() {
             </button>
             <button
               onClick={() => setActiveTab('doubts')}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+              className={`px-2.5 sm:px-3 md:px-4 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap ${
                 activeTab === 'doubts'
                   ? 'bg-blue-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
@@ -606,7 +606,7 @@ export default function Dashboard() {
             </button>
             <button
               onClick={() => setActiveTab('leaderboard')}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+              className={`px-2.5 sm:px-3 md:px-4 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap ${
                 activeTab === 'leaderboard'
                   ? 'bg-blue-600 text-white shadow-md'
                   : 'text-slate-400 hover:text-white'
