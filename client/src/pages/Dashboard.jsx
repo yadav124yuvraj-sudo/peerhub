@@ -555,13 +555,13 @@ export default function Dashboard() {
       {/* RIGHT WORKSPACE AREA */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* TOP NAVIGATION HEADER: Server Name & Tab Switcher */}
-        <header className="h-14 border-b border-slate-800 px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-4 bg-slate-900 shrink-0 min-w-0">
-          <div className="min-w-0 flex-1 flex items-center gap-2 sm:gap-3 overflow-hidden">
-            <span className="font-bold text-sm sm:text-base text-white truncate max-w-[120px] sm:max-w-[200px] lg:max-w-[300px]">
+        <header className="h-14 w-full border-b border-slate-800 px-3 sm:px-6 flex items-center justify-between gap-3 bg-slate-900 shrink-0 min-w-0">
+          <div className="min-w-0 flex items-center gap-2 sm:gap-3 shrink overflow-hidden">
+            <span className="font-bold text-sm sm:text-base text-white truncate max-w-[140px] sm:max-w-[220px]">
               {selectedServerDetails ? selectedServerDetails.name : 'Select a Server'}
             </span>
             {selectedServerDetails?.inviteCode && (
-              <span className="shrink-0 text-[10px] bg-slate-800 border border-slate-700 px-2 py-0.5 rounded-md text-slate-400 font-mono truncate max-w-[130px] hidden md:inline-block" title={`Invite Code: ${selectedServerDetails.inviteCode}`}>
+              <span className="shrink-0 text-[10px] bg-slate-800 border border-slate-700 px-2 py-0.5 rounded-md text-slate-400 font-mono hidden xl:inline-block" title={`Invite Code: ${selectedServerDetails.inviteCode}`}>
                 Code: {selectedServerDetails.inviteCode}
               </span>
             )}
@@ -573,7 +573,7 @@ export default function Dashboard() {
           </div>
 
           {/* TAB NAVIGATION */}
-          <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 overflow-x-auto max-w-full shrink-0">
+          <div className="shrink-0 flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
             <button
               onClick={() => setActiveTab('chat')}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer whitespace-nowrap shrink-0 ${
