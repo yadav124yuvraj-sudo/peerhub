@@ -305,11 +305,7 @@ export default function Dashboard() {
       }
       formData.append('file', uploadFile)
 
-      await API.post('/resources/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      await API.post('/resources/upload', formData)
 
       setUploadTitle('')
       setUploadTags('')

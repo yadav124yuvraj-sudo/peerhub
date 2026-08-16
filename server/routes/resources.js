@@ -6,7 +6,10 @@ const cloudinary = require('../cloudinaryConfig');
 const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+});
 
 // Upload a resource
 router.post('/upload', authMiddleware, upload.single('file'), async (req, res) => {
@@ -45,8 +48,8 @@ router.post('/upload', authMiddleware, upload.single('file'), async (req, res) =
         res.status(201).json({ message: 'Resource uploaded successfully', resource });
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Something went wrong' });
+        console.error('Resource upload error:', error);
+        res.status(500).json({ error: error.message || 'Failed to upload resource' });
     }
 });
 
