@@ -292,7 +292,32 @@ export default function Dashboard() {
   // Handle Resource Upload
   const handleUploadSubmit = async (e) => {
     e.preventDefault()
-    if (!uploadTitle.trim() || !uploadFile || !selectedServerId) return
+    console.log('[Upload Debug] Submit triggered:', {
+      uploadTitle: uploadTitle.trim(),
+      hasFile: !!uploadFile,
+      fileName: uploadFile?.name,
+      fileSize: uploadFile?.size,
+      selectedServerId,
+    })
+
+    if (!selectedServerId) {
+      console.warn('[Upload Debug] Validation failed: selectedServerId is missing!')
+      setUploadError('No server selected. Please select a server first.')
+      return
+    }
+
+    if (!uploadTitle.trim()) {
+      console.warn('[Upload Debug] Validation failed: uploadTitle is empty!')
+      setUploadError('Resource title is required.')
+      return
+    }
+
+    if (!uploadFile) {
+      console.warn('[Upload Debug] Validation failed: uploadFile is missing!')
+      setUploadError('Please select a file to upload.')
+      return
+    }
+
     setUploadError('')
     setUploadLoading(true)
 
@@ -305,7 +330,14 @@ export default function Dashboard() {
       }
       formData.append('file', uploadFile)
 
-      await API.post('/resources/upload', formData)
+      console.log('[Upload Debug] FormData entries:')
+      for (const [key, val] of formData.entries()) {
+        console.log(`  ${key}:`, val instanceof File ? `File(${val.name}, ${val.size} bytes)` : val)
+      }
+
+      console.log('[Upload Debug] Sending POST to /resources/upload...')
+      const res = await API.post('/resources/upload', formData)
+      console.log('[Upload Debug] Response received successfully:', res.data)
 
       setUploadTitle('')
       setUploadTags('')
@@ -313,7 +345,9 @@ export default function Dashboard() {
       setIsUploadModalOpen(false)
       fetchResources()
     } catch (err) {
-      setUploadError(err.response?.data?.error || 'Failed to upload resource')
+      console.error('[Upload Debug] Request failed with error:', err)
+      const errorMsg = err.response?.data?.error || err.message || 'Failed to upload resource'
+      setUploadError(errorMsg)
     } finally {
       setUploadLoading(false)
     }
