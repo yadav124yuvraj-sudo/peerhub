@@ -812,7 +812,7 @@ export default function Dashboard() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3 relative z-10">
                 <input
                   type="text"
                   value={searchQuery}
@@ -822,11 +822,15 @@ export default function Dashboard() {
                 />
 
                 <button
+                  type="button"
                   onClick={() => {
-                    setIsUploadModalOpen(true)
+                    setUploadTitle('')
+                    setUploadTags('')
+                    setUploadFile(null)
                     setUploadError('')
+                    setIsUploadModalOpen(true)
                   }}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-blue-600/30 transition cursor-pointer flex items-center gap-2 shrink-0"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-blue-600/30 transition cursor-pointer flex items-center gap-2 shrink-0 relative z-20"
                 >
                   <span>+</span> Upload Resource
                 </button>
@@ -879,6 +883,7 @@ export default function Dashboard() {
                       <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs">
                         <div className="flex flex-wrap items-center gap-2">
                           <button
+                            type="button"
                             onClick={() => handleUpvote(resItem.id)}
                             className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500/40 border border-slate-700 text-slate-300 hover:text-emerald-400 rounded-lg transition cursor-pointer"
                           >
@@ -887,6 +892,7 @@ export default function Dashboard() {
                           </button>
 
                           <button
+                            type="button"
                             onClick={() => handleDownload(resItem.id)}
                             className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-lg shadow-md transition cursor-pointer"
                           >
@@ -925,9 +931,10 @@ export default function Dashboard() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3 relative z-10">
                 <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0">
                   <button
+                    type="button"
                     onClick={() => setDoubtFilter('all')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
                       doubtFilter === 'all'
@@ -938,6 +945,7 @@ export default function Dashboard() {
                     All
                   </button>
                   <button
+                    type="button"
                     onClick={() => setDoubtFilter('open')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
                       doubtFilter === 'open'
@@ -948,6 +956,7 @@ export default function Dashboard() {
                     Open
                   </button>
                   <button
+                    type="button"
                     onClick={() => setDoubtFilter('solved')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
                       doubtFilter === 'solved'
@@ -960,11 +969,13 @@ export default function Dashboard() {
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => {
-                    setIsAskDoubtModalOpen(true)
+                    setDoubtTitleInput('')
                     setAskDoubtError('')
+                    setIsAskDoubtModalOpen(true)
                   }}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-blue-600/30 transition cursor-pointer flex items-center gap-2 shrink-0"
+                  className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm rounded-xl shadow-lg shadow-blue-600/30 transition cursor-pointer flex items-center gap-2 shrink-0 relative z-20"
                 >
                   <span>+</span> Ask a Doubt
                 </button>
