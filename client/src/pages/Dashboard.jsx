@@ -485,7 +485,7 @@ export default function Dashboard() {
   )
 
   return (
-    <div className="h-screen w-screen flex bg-slate-950 text-slate-100 overflow-hidden font-sans select-none">
+    <div className="h-screen w-full max-w-full flex bg-slate-950 text-slate-100 overflow-hidden font-sans select-none">
       {/* COLUMN 1: Narrow Left Sidebar - Server Icons */}
       <aside className="w-20 bg-slate-900 border-r border-slate-800 flex flex-col items-center py-4 shrink-0 z-10">
         <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center font-black text-xl text-white shadow-lg shadow-blue-600/30 mb-2 cursor-pointer hover:rounded-xl transition-all duration-200">
@@ -816,13 +816,13 @@ export default function Dashboard() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={handleSearchChange}
                   placeholder="Search resources..."
-                  className="px-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-64 select-text"
+                  className="px-4 py-2 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64 max-w-full select-text"
                 />
 
                 <button
@@ -881,7 +881,7 @@ export default function Dashboard() {
                       </div>
 
                       <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs">
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                           <button
                             onClick={() => handleUpvote(resItem.id)}
                             className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-emerald-600/20 hover:border-emerald-500/40 border border-slate-700 text-slate-300 hover:text-emerald-400 rounded-lg transition cursor-pointer"
@@ -929,8 +929,8 @@ export default function Dashboard() {
                 </p>
               </div>
 
-              <div className="flex items-center gap-3">
-                <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center bg-slate-900 p-1 rounded-xl border border-slate-800 shrink-0">
                   <button
                     onClick={() => setDoubtFilter('all')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
